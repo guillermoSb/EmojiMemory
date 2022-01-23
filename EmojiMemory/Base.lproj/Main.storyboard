@@ -5,40 +5,58 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Emoji GameVC-->
+        <!--Memory GameVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="EmojiGameVC" customModule="EmojiMemory" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MemoryGameVC" customModule="EmojiMemory" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ntB-mQ-qIw" customClass="CardView" customModule="EmojiMemory" customModuleProvider="target">
-                                <rect key="frame" x="132" y="328" width="150" height="240"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hxH-8N-Plr">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="240" id="U3l-re-R2i"/>
-                                    <constraint firstAttribute="width" constant="150" id="ldc-9N-K8D"/>
-                                </constraints>
-                            </view>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="48z-Xn-wWY">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cardView" id="ZNW-hv-0i2" customClass="CardView" customModule="EmojiMemory" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="hLe-9c-GSf">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                        <gestureRecognizers/>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="ZP1-pg-A2H"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="eYN-0X-PQO"/>
+                                </connections>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="ntB-mQ-qIw" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Gjc-Wz-efs"/>
-                            <constraint firstItem="ntB-mQ-qIw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cJm-mB-KtZ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hxH-8N-Plr" secondAttribute="trailing" id="6Qf-8e-S84"/>
+                            <constraint firstItem="hxH-8N-Plr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ZmJ-Xw-bh5"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="hxH-8N-Plr" secondAttribute="bottom" id="sto-wx-f1P"/>
+                            <constraint firstItem="hxH-8N-Plr" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="wsx-mi-mSe"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="collectionView" destination="hxH-8N-Plr" id="mn7-Is-lRB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="HD7-nI-TIE">
-                    <connections>
-                        <action selector="tapCard:" destination="BYZ-38-t0r" id="WY2-sp-79v"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="153.62318840579712" y="72.991071428571431"/>
         </scene>

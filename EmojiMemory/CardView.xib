@@ -10,7 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CardView" customModule="EmojiMemory" customModuleProvider="target">
             <connections>
-                <outlet property="contentView" destination="iN0-l3-epB" id="QGV-dZ-RqN"/>
+                <outlet property="content" destination="iN0-l3-epB" id="DuD-EK-k95"/>
                 <outlet property="emojiLabel" destination="NdA-Xg-56h" id="8Hc-bL-QLf"/>
             </connections>
         </placeholder>
@@ -20,8 +20,8 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="👻" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NdA-Xg-56h">
-                    <rect key="frame" x="184.5" y="397" width="45" height="48"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                    <rect key="frame" x="190" y="403" width="34" height="36"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -34,16 +34,8 @@
                 <constraint firstItem="NdA-Xg-56h" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="n5j-o9-7tA"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <connections>
-                <outletCollection property="gestureRecognizers" destination="2Mk-qw-QWw" appends="YES" id="GKB-YA-zGk"/>
-            </connections>
             <point key="canvasLocation" x="141" y="154"/>
         </view>
-        <tapGestureRecognizer id="2Mk-qw-QWw">
-            <connections>
-                <action selector="cardTapped:" destination="-1" id="Lfp-AS-krT"/>
-            </connections>
-        </tapGestureRecognizer>
     </objects>
     <resources>
         <systemColor name="systemBackgroundColor">

@@ -7,10 +7,10 @@
 
 import UIKit
 
-class CardView: UIView {
+class CardView: UICollectionViewCell {
 
     // Outlets
-    @IBOutlet var contentView: UIView!  // Card Content View
+    @IBOutlet var content: UIView!  // Card Content View
     @IBOutlet var emojiLabel: UILabel!  // Label with the emoji on it
     
     // Properties
@@ -44,30 +44,30 @@ class CardView: UIView {
     func initSubViews() {
         let nib = UINib(nibName: "CardView", bundle: nil)
         nib.instantiate(withOwner: self, options: nil)
-        contentView.frame = bounds
-        addSubview(contentView)
+        content.frame = bounds
+        addSubview(content)
         configureCardView()
     }
     
     // Configure the card view
     func configureCardView() {
-        contentView.layer.borderColor = cardColor.cgColor
-        contentView.layer.cornerRadius = 10
-        contentView.layer.cornerCurve = .continuous
-        contentView.layer.borderWidth = 2
+        content.layer.borderColor = cardColor.cgColor
+        content.layer.cornerRadius = 10
+        content.layer.cornerCurve = .continuous
+        content.layer.borderWidth = 2
         switchCardState()   // Switch the card state
     }
     
     // Face up configuration
     func configureFaceUpCard() {
         emojiLabel.isHidden = false
-        contentView.backgroundColor = .none
+        content.backgroundColor = .none
     }
     
     // Face down configuration
     func configureFaceDownCard() {
         emojiLabel.isHidden = true
-        contentView.backgroundColor = .systemOrange
+        content.backgroundColor = .systemOrange
     }
     
     // Switch the card appearence
@@ -79,9 +79,9 @@ class CardView: UIView {
         }
     }
     
-    // Check for the user tapping on the card
-    @IBAction func cardTapped(_ sender: UITapGestureRecognizer) {
-        UIView.transition(with: contentView, duration: 0.30, options: [.transitionFlipFromLeft, .showHideTransitionViews]) {
+    // Flip the card
+    func flipCard() {
+        UIView.transition(with: content, duration: 0.30, options: [.transitionFlipFromLeft, .showHideTransitionViews]) {
             self.isFaceUp.toggle()
         }
 
