@@ -13,10 +13,30 @@ typealias PresenterDelegate = MemoryGamePDelegate & UIViewController
 class MemoryGameP {
     
     weak var delegate: PresenterDelegate?
-    private let memoryGame: MemoryGame = MemoryGame<String>.createMemoryGame(library:  ["👻", "😡", "👿","🤡","🎃", "🏓", "👿","🤡","🎃", "🏓", "🏓", "🏓", "🏓", "🏓", "🏓", "🏓", "🏓", "🏓", "🏓", "🏓", "🏓", "🏓", "🏓", "🏓", "🏓", "🏓", "🏓", "🏓", "🏓", "🏓", "🏓", "🏓", "🏓", "🏓", "🏓", "🏓"])
+    private var memoryGame: MemoryGame = MemoryGame<String>.createMemoryGame(library:  ["👻", "😡", "👿","🤡","🎃", "🏓"])
     
     var cardCount: Int {memoryGame.cards.count}
     var cards: [MemoryGame<String>.MemoryCard] {memoryGame.cards}
+    
+    public func flipCard(at index: Int) {
+        // Hide Matched Cards
+        hideMatchedCards()
+        guard !cards[index].isFaceUp else {return}
+        memoryGame.flipCard(at: index)
+        // Handle new flips
+        for cardIndex in 0..<cards.count {
+            delegate?.flipCard(at: cardIndex)
+        }
+
+    }
+    
+    public func hideMatchedCards() {
+        for cardIndex in 0..<cards.count {
+            if cards[cardIndex].isMatched {
+                delegate?.hideCard(at: cardIndex)
+            }
+        }
+    }
     
     public func setViewDelegate(delegate: PresenterDelegate) {
         self.delegate = delegate
@@ -31,4 +51,6 @@ class MemoryGameP {
 
 protocol MemoryGamePDelegate {
     func presentCards(cards: [MemoryGame<String>.MemoryCard])
+    func flipCard(at index: Int)
+    func hideCard(at index: Int)
 }

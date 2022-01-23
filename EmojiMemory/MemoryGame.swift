@@ -8,20 +8,53 @@
 import Foundation
 
 
-struct MemoryGame<CardContent> {
+struct MemoryGame<CardContent: Equatable> {
     
-    let cards: [MemoryCard]
+    var cards: [MemoryCard]
     let score: Int = 0
     
+    var currentFaceUpCard: Int?  // The current face up card
+    
     static func createMemoryGame(library: [CardContent]) -> MemoryGame<CardContent> {
-        return MemoryGame<CardContent>(cards: library.map({ emoji in
-            MemoryGame<CardContent>.MemoryCard(value: emoji, isFaceUp: false)
-        }))
+        
+        var cards: [MemoryGame<CardContent>.MemoryCard] = []
+        for content in library {
+            // Create two cards for each item on the library
+            cards.append(MemoryGame<CardContent>.MemoryCard(value: content, isFaceUp: false))
+            cards.append(MemoryGame<CardContent>.MemoryCard(value: content, isFaceUp: false))
+        }
+        
+        return MemoryGame<CardContent>(cards: cards)
+    }
+    
+    
+    mutating func flipCard(at index: Int) {
+        if let currentFaceUpCard = currentFaceUpCard {
+            // If the current card content is equal to the new card content set both as matched
+            if cards[currentFaceUpCard].value == cards[index].value {
+                cards[currentFaceUpCard].isMatched.toggle()
+                cards[index].isMatched.toggle()
+            }
+            self.currentFaceUpCard = nil
+        } else {
+            allCardsFaceDown()
+            currentFaceUpCard = index
+        }
+        cards[index].isFaceUp.toggle()
+    }
+    
+    mutating func allCardsFaceDown() {
+        for index in 0..<cards.count {
+            if !cards[index].isMatched {
+                cards[index].isFaceUp = false
+            }
+        }
     }
     
     struct MemoryCard {
         let value: CardContent
         var isFaceUp: Bool
+        var isMatched: Bool = false
     }
 }
 

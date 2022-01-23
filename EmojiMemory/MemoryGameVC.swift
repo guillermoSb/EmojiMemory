@@ -28,7 +28,6 @@ class MemoryGameVC: UIViewController {
 
     func configureCollectionView() {
         collectionView.isScrollEnabled = false
-//        let bestLayout = calculateLayout(for: collectionView.frame.size)
     }
     
     
@@ -52,12 +51,31 @@ func calculateLayout(for size: CGSize, itemCount: Int) -> (rows: Int, cols: Int)
             }
         }
     }
-    print("Best layout for \(itemCount)")
-    print(bestLayout)
     return bestLayout
 }
 
 extension MemoryGameVC: MemoryGamePDelegate {
+    
+    func hideCard(at index: Int) {
+        guard let indexPath = collectionView.indexPathsForVisibleItems.first(where: {$0.row == index}) else {return}
+        let cardView = collectionView.cellForItem(at: indexPath) as! CardView
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear) {
+            cardView.alpha = 0
+        }
+    }
+    
+    
+    func flipCard(at index: Int) {
+        // Find the card to flip
+        guard let indexPath = collectionView.indexPathsForVisibleItems.first(where: {$0.row == index}) else {return}
+        let cardView = collectionView.cellForItem(at: indexPath) as! CardView
+        // Only flip the card if the state changes
+        if cardView.isFaceUp != presenter.cards[index].isFaceUp {
+            cardView.flipCard()
+        }
+        
+    }
+    
     func presentCards(cards: [MemoryGame<String>.MemoryCard]) {
         // TODO
     }
@@ -72,8 +90,7 @@ extension MemoryGameVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cardView = collectionView.cellForItem(at: indexPath) as? CardView else {return}
-        cardView.flipCard()
-        print("selected \(indexPath.row)")
+        presenter.flipCard(at: indexPath.row)   // Change the state of the game
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
