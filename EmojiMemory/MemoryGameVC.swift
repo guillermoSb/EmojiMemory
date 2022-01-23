@@ -59,9 +59,10 @@ extension MemoryGameVC: MemoryGamePDelegate {
     func hideCard(at index: Int) {
         guard let indexPath = collectionView.indexPathsForVisibleItems.first(where: {$0.row == index}) else {return}
         let cardView = collectionView.cellForItem(at: indexPath) as! CardView
-        UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear) {
-            cardView.alpha = 0
+        if !cardView.cardHidden {
+            cardView.hideCard()
         }
+        
     }
     
     

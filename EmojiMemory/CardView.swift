@@ -15,6 +15,7 @@ class CardView: UICollectionViewCell {
     
     // Properties
     var cardColor: UIColor = .systemOrange  // Color for the card
+    var cardHidden = false
     var cardContent: String {
         get {
             return emojiLabel.text ?? ""
@@ -84,7 +85,20 @@ class CardView: UICollectionViewCell {
         UIView.transition(with: content, duration: 0.30, options: [.transitionFlipFromLeft, .showHideTransitionViews]) {
             self.isFaceUp.toggle()
         }
-
+    }
+    
+    func hideCard() {
+        cardHidden = true
+        let animator = UIViewPropertyAnimator(duration: 0.15, curve: .easeOut) {
+            self.alpha = 0
+        }
+        // Hide the view when the animation finishes
+        animator.addCompletion { position in
+            if position == .end {
+                self.isHidden = true
+            }
+        }
+        animator.startAnimation()
     }
     
 

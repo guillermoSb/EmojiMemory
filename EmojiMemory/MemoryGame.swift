@@ -18,6 +18,7 @@ struct MemoryGame<CardContent: Equatable> {
     static func createMemoryGame(library: [CardContent]) -> MemoryGame<CardContent> {
         
         var cards: [MemoryGame<CardContent>.MemoryCard] = []
+        // library.shuffle()
         for content in library {
             // Create two cards for each item on the library
             cards.append(MemoryGame<CardContent>.MemoryCard(value: content, isFaceUp: false))
