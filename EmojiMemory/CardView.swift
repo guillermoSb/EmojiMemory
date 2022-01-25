@@ -82,7 +82,7 @@ class CardView: UICollectionViewCell {
     
     // Flip the card
     func flipCard() {
-        UIView.transition(with: content, duration: 0.30, options: [.transitionFlipFromLeft, .showHideTransitionViews]) {
+        UIView.transition(with: content, duration: 0.25, options: [.transitionFlipFromLeft, .showHideTransitionViews]) {
             self.isFaceUp.toggle()
         }
     }

@@ -25,7 +25,7 @@ struct MemoryGame<CardContent: Equatable> {
             cards.append(MemoryGame<CardContent>.MemoryCard(value: content, isFaceUp: false))
         }
         
-        return MemoryGame<CardContent>(cards: cards)
+        return MemoryGame<CardContent>(cards: cards.shuffled())
     }
     
     

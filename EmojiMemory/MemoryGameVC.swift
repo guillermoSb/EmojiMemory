@@ -30,6 +30,14 @@ class MemoryGameVC: UIViewController {
         collectionView.isScrollEnabled = false
     }
     
+    @IBAction func restartButtonTapped(_ sender: UIBarButtonItem) {
+        self.collectionView.performBatchUpdates {
+            self.collectionView.deleteItems(at: collectionView.indexPathsForVisibleItems)
+            presenter.restartGame()
+        }
+
+   
+    }
     
     private let collectionViewInsets: UIEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 }
@@ -78,7 +86,8 @@ extension MemoryGameVC: MemoryGamePDelegate {
     }
     
     func presentCards(cards: [MemoryGame<String>.MemoryCard]) {
-        // TODO
+        collectionView.deleteItems(at: collectionView.indexPathsForVisibleItems)
+        collectionView.reloadData()
     }
 }
 
@@ -104,6 +113,10 @@ extension MemoryGameVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cardView", for: indexPath) as! CardView
+        cell.isFaceUp = false
+        cell.alpha = 1
+        cell.isHidden = false
+        cell.cardHidden = false
         cell.cardContent = presenter.cards[indexPath.row].value
         return cell
     }

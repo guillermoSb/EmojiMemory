@@ -46,6 +46,11 @@ class MemoryGameP {
         self.delegate?.presentCards(cards: memoryGame.cards)
     }
     
+    public func restartGame() {
+        self.memoryGame =  MemoryGame<String>.createMemoryGame(library:  ["👻", "😡", "👿","🤡","🎃", "🏓"])
+        self.getMemoryGame()
+    }
+    
     
 }
 
