@@ -99,7 +99,7 @@ extension MemoryGameVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cardView = collectionView.cellForItem(at: indexPath) as? CardView else {return}
+        guard let _ = collectionView.cellForItem(at: indexPath) as? CardView else {return}
         presenter.flipCard(at: indexPath.row)   // Change the state of the game
     }
     
