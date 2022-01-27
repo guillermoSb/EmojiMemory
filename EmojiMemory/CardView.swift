@@ -8,10 +8,11 @@
 import UIKit
 
 class CardView: UICollectionViewCell {
-
+    
     // Outlets
     @IBOutlet var content: UIView!  // Card Content View
     @IBOutlet var emojiLabel: UILabel!  // Label with the emoji on it
+    var pieContainer: UIView = UIView()
     
     // Properties
     var cardColor: UIColor = .systemOrange  // Color for the card
@@ -46,9 +47,13 @@ class CardView: UICollectionViewCell {
         let nib = UINib(nibName: "CardView", bundle: nil)
         nib.instantiate(withOwner: self, options: nil)
         content.frame = bounds
+        insetsLayoutMarginsFromSafeArea = false
         addSubview(content)
         configureCardView()
+        configurePieContainer()
+        
     }
+    
     
     // Configure the card view
     func configureCardView() {
@@ -59,15 +64,51 @@ class CardView: UICollectionViewCell {
         switchCardState()   // Switch the card state
     }
     
+    // Configure the pieContainer
+    func configurePieContainer() {
+        content.addSubview(pieContainer)
+        pieContainer.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            pieContainer.centerXAnchor.constraint(equalTo: content.centerXAnchor),
+            pieContainer.centerYAnchor.constraint(equalTo: content.centerYAnchor),
+            pieContainer.widthAnchor.constraint(equalToConstant: 20),
+            pieContainer.heightAnchor.constraint(equalToConstant: 20)
+        ])
+        content.sendSubviewToBack(pieContainer)
+        createProgressCircle()
+    }
+    
+    // Create the progress circle shape
+    func createProgressCircle() {
+        
+        let layer = CAShapeLayer()
+        print(pieContainer.frame.size.width/2)
+        print(pieContainer.frame.size.height/2)
+        let circlePath = UIBezierPath(
+            arcCenter: CGPoint(x: 10, y: 10),
+            radius: 35,
+            startAngle: 0,
+            endAngle: 2 * CGFloat.pi,
+            clockwise: true)
+        //        content.backgroundColor = .blue
+        layer.path = circlePath.cgPath
+        layer.fillColor = UIColor.systemRed.cgColor
+        
+        pieContainer.layer.addSublayer(layer)
+    }
+    
+    
     // Face up configuration
     func configureFaceUpCard() {
         emojiLabel.isHidden = false
+        pieContainer.isHidden = false
         content.backgroundColor = .none
     }
     
     // Face down configuration
     func configureFaceDownCard() {
         emojiLabel.isHidden = true
+        pieContainer.isHidden = true
         content.backgroundColor = .systemOrange
     }
     
@@ -101,5 +142,5 @@ class CardView: UICollectionViewCell {
         animator.startAnimation()
     }
     
-
+    
 }
