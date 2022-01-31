@@ -11,6 +11,7 @@
 		700BA87C2799DEF600374D5C /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 700BA87B2799DEF600374D5C /* CardView.xib */; };
 		700BA87E279AFEE800374D5C /* MemoryGameP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700BA87D279AFEE800374D5C /* MemoryGameP.swift */; };
 		703E80C92798806E00662C98 /* MemoryGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703E80C82798806E00662C98 /* MemoryGame.swift */; };
+		709FAB2627A76023004A07B9 /* PieShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709FAB2527A76023004A07B9 /* PieShapeLayer.swift */; };
 		70A430CC27987CA600770E9A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A430CB27987CA600770E9A /* AppDelegate.swift */; };
 		70A430CE27987CA600770E9A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A430CD27987CA600770E9A /* SceneDelegate.swift */; };
 		70A430D327987CA600770E9A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70A430D127987CA600770E9A /* Main.storyboard */; };
@@ -24,6 +25,7 @@
 		700BA87B2799DEF600374D5C /* CardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardView.xib; sourceTree = "<group>"; };
 		700BA87D279AFEE800374D5C /* MemoryGameP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryGameP.swift; sourceTree = "<group>"; };
 		703E80C82798806E00662C98 /* MemoryGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryGame.swift; sourceTree = "<group>"; };
+		709FAB2527A76023004A07B9 /* PieShapeLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieShapeLayer.swift; sourceTree = "<group>"; };
 		70A430C827987CA600770E9A /* EmojiMemory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmojiMemory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		70A430CB27987CA600770E9A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		70A430CD27987CA600770E9A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 				70A430CB27987CA600770E9A /* AppDelegate.swift */,
 				70A430CD27987CA600770E9A /* SceneDelegate.swift */,
 				70A430E127987E8600770E9A /* MemoryGameVC.swift */,
+				709FAB2527A76023004A07B9 /* PieShapeLayer.swift */,
 				700BA87D279AFEE800374D5C /* MemoryGameP.swift */,
 				703E80C82798806E00662C98 /* MemoryGame.swift */,
 				70A430D127987CA600770E9A /* Main.storyboard */,
@@ -155,6 +158,7 @@
 				700BA87E279AFEE800374D5C /* MemoryGameP.swift in Sources */,
 				70A430CE27987CA600770E9A /* SceneDelegate.swift in Sources */,
 				703E80C92798806E00662C98 /* MemoryGame.swift in Sources */,
+				709FAB2627A76023004A07B9 /* PieShapeLayer.swift in Sources */,
 				70A430E227987E8600770E9A /* MemoryGameVC.swift in Sources */,
 				700BA87A2799DEE900374D5C /* CardView.swift in Sources */,
 			);

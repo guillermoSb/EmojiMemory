@@ -13,6 +13,7 @@ class CardView: UICollectionViewCell {
     @IBOutlet var content: UIView!  // Card Content View
     @IBOutlet var emojiLabel: UILabel!  // Label with the emoji on it
     var pieContainer: UIView = UIView()
+    var pieLayer = PieShapeLayer()
     
     // Properties
     var cardColor: UIColor = .systemOrange  // Color for the card
@@ -25,6 +26,20 @@ class CardView: UICollectionViewCell {
             emojiLabel.text = newValue
         }
     }
+    private var faceUpAt: Date?
+    private var faceDownAt: Date?
+    
+    private var animationPercentage: Double {
+        guard let faceDownAt = faceDownAt,
+              let faceUpAt = faceUpAt else {
+                  return 0  // No progress at all
+              }
+        return min((faceUpAt.timeIntervalSinceReferenceDate - faceDownAt.timeIntervalSinceReferenceDate).magnitude / Double(animationDuration), 1.0)
+    }
+    
+    private let animationDuration: Double = 10
+    private var animationPercentageLeft: Double = 1
+    
     // Wether the card is face up or face down
     var isFaceUp: Bool = false {
         didSet {
@@ -80,36 +95,50 @@ class CardView: UICollectionViewCell {
     
     // Create the progress circle shape
     func createProgressCircle() {
-        
-        let layer = CAShapeLayer()
-        print(pieContainer.frame.size.width/2)
-        print(pieContainer.frame.size.height/2)
-        let circlePath = UIBezierPath(
-            arcCenter: CGPoint(x: 10, y: 10),
-            radius: 35,
-            startAngle: 0,
-            endAngle: 2 * CGFloat.pi,
-            clockwise: true)
-        //        content.backgroundColor = .blue
-        layer.path = circlePath.cgPath
-        layer.fillColor = UIColor.systemRed.cgColor
-        
-        pieContainer.layer.addSublayer(layer)
+        self.pieLayer.strokeEnd = 1
+        self.pieLayer.lineWidth = 10
+        self.pieLayer.fillColor = UIColor.clear.cgColor
+        self.pieLayer.strokeColor = UIColor.systemOrange.cgColor
+        self.pieLayer.display()
+        pieContainer.layer.addSublayer(self.pieLayer)
+    }
+    
+    func animatePie() {
+        // Create the CA animation
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        animation.fromValue = 1 - animationPercentageLeft
+        animation.toValue = 1
+        animation.duration = CFTimeInterval(animationDuration * animationPercentageLeft)
+        animation.isRemovedOnCompletion = false
+        animation.fillMode = .forwards
+        pieLayer.add(animation, forKey: "strokeEnd")
     }
     
     
     // Face up configuration
     func configureFaceUpCard() {
+        faceUpAt = Date()
+        print("Percentage left: \(animationPercentageLeft)")
         emojiLabel.isHidden = false
         pieContainer.isHidden = false
         content.backgroundColor = .none
+        animatePie()
     }
     
     // Face down configuration
     func configureFaceDownCard() {
+        if let _ = faceUpAt {
+            faceDownAt = Date()
+            calculateBonusLeft()
+        }
         emojiLabel.isHidden = true
         pieContainer.isHidden = true
         content.backgroundColor = .systemOrange
+    }
+    
+    func calculateBonusLeft() {
+        animationPercentageLeft = animationPercentageLeft - animationPercentage
+        print("Percentage Left \(animationPercentageLeft)")
     }
     
     // Switch the card appearence

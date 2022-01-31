@@ -118,7 +118,6 @@ extension MemoryGameVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
         cell.isHidden = false
         cell.cardHidden = false
         cell.cardContent = presenter.cards[indexPath.row].value
-//        cell.createProgressCircle()
         return cell
     }
     
