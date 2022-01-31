@@ -9,7 +9,7 @@ import UIKit
 
 class PieShapeLayer: CAShapeLayer {
     
-    var startAngle: CGFloat = -.pi/2
+    var startAngle: CGFloat = 0.0
     var endAngle: CGFloat = .pi * 2
     
     override init() {
@@ -21,6 +21,10 @@ class PieShapeLayer: CAShapeLayer {
         self.startAngle = startAngle
         self.endAngle = endAngle
 
+    }
+    
+    override init(layer: Any) {
+        super.init(layer: layer)
     }
     
     required init?(coder: NSCoder) {

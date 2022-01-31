@@ -23,11 +23,21 @@ class MemoryGameP {
         hideMatchedCards()
         guard !cards[index].isFaceUp else {return}
         memoryGame.flipCard(at: index)
+        // Mark matched cards
+        markMatchedCards()
         // Handle new flips
         for cardIndex in 0..<cards.count {
             delegate?.flipCard(at: cardIndex)
         }
 
+    }
+    
+    public func markMatchedCards() {
+        for cardIndex in 0..<cards.count {
+            if cards[cardIndex].isMatched {
+                delegate?.markCardMathced(at: cardIndex)
+            }
+        }
     }
     
     public func hideMatchedCards() {
@@ -58,4 +68,5 @@ protocol MemoryGamePDelegate {
     func presentCards(cards: [MemoryGame<String>.MemoryCard])
     func flipCard(at index: Int)
     func hideCard(at index: Int)
+    func markCardMathced(at index: Int)
 }

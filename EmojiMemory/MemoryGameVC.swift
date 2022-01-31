@@ -73,6 +73,12 @@ extension MemoryGameVC: MemoryGamePDelegate {
         
     }
     
+    func markCardMathced(at index: Int) {
+        guard let indexPath = collectionView.indexPathsForVisibleItems.first(where: {$0.row == index}) else {return}
+        let cardView = collectionView.cellForItem(at: indexPath) as! CardView
+        cardView.matchCard()
+    }
+    
     
     func flipCard(at index: Int) {
         // Find the card to flip

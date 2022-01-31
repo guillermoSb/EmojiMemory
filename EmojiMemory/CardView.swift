@@ -18,6 +18,7 @@ class CardView: UICollectionViewCell {
     // Properties
     var cardColor: UIColor = .systemOrange  // Color for the card
     var cardHidden = false
+    private var isMatched = false
     var cardContent: String {
         get {
             return emojiLabel.text ?? ""
@@ -25,6 +26,9 @@ class CardView: UICollectionViewCell {
         set {
             emojiLabel.text = newValue
         }
+    }
+    private var hasBonus: Bool {
+        return animationPercentageLeft > 0
     }
     private var faceUpAt: Date?
     private var faceDownAt: Date?
@@ -37,7 +41,7 @@ class CardView: UICollectionViewCell {
         return min((faceUpAt.timeIntervalSinceReferenceDate - faceDownAt.timeIntervalSinceReferenceDate).magnitude / Double(animationDuration), 1.0)
     }
     
-    private let animationDuration: Double = 10
+    private let animationDuration: Double = 3
     private var animationPercentageLeft: Double = 1
     
     // Wether the card is face up or face down
@@ -118,7 +122,6 @@ class CardView: UICollectionViewCell {
     // Face up configuration
     func configureFaceUpCard() {
         faceUpAt = Date()
-        print("Percentage left: \(animationPercentageLeft)")
         emojiLabel.isHidden = false
         pieContainer.isHidden = false
         content.backgroundColor = .none
@@ -138,7 +141,6 @@ class CardView: UICollectionViewCell {
     
     func calculateBonusLeft() {
         animationPercentageLeft = animationPercentageLeft - animationPercentage
-        print("Percentage Left \(animationPercentageLeft)")
     }
     
     // Switch the card appearence
@@ -157,9 +159,10 @@ class CardView: UICollectionViewCell {
         }
     }
     
+    // Hide a Card
     func hideCard() {
         cardHidden = true
-        let animator = UIViewPropertyAnimator(duration: 0.15, curve: .easeOut) {
+        let animator = UIViewPropertyAnimator(duration: 0.30, curve: .easeOut) {
             self.alpha = 0
         }
         // Hide the view when the animation finishes
@@ -171,5 +174,16 @@ class CardView: UICollectionViewCell {
         animator.startAnimation()
     }
     
+    func matchCard() {
+        if !isMatched {
+            faceDownAt = Date()
+            calculateBonusLeft()
+            let animator = UIViewPropertyAnimator(duration: 0.30, curve: .easeOut) {
+                self.pieLayer.opacity = 0
+            }
+            animator.startAnimation()
+        }
+        
+    }
     
 }
