@@ -13,31 +13,33 @@ typealias PresenterDelegate = MemoryGamePDelegate & UIViewController
 class MemoryGameP {
     
     weak var delegate: PresenterDelegate?
-    private var memoryGame: MemoryGame = MemoryGame<String>.createMemoryGame(library:  ["👻", "😡", "👿","🤡","🎃", "🏓"])
+    private var memoryGame: MemoryGame = MemoryGame<String>.createMemoryGame(using:  ["👻", "😡", "👿","🤡","🎃", "🏓"], bonus: 3)
     
     var cardCount: Int {memoryGame.cards.count}
     var cards: [MemoryGame<String>.MemoryCard] {memoryGame.cards}
+    var score: Int {memoryGame.score}
+    
+    var bonusDuration: Double {memoryGame.bonusTime}
     
     public func flipCard(at index: Int) {
-        // Hide Matched Cards
         hideMatchedCards()
-        guard !cards[index].isFaceUp else {return}
+        // Flip a card on the model
         memoryGame.flipCard(at: index)
-        // Mark matched cards
-        markMatchedCards()
-        // Handle new flips
-        for cardIndex in 0..<cards.count {
-            delegate?.flipCard(at: cardIndex)
-        }
-
-    }
-    
-    public func markMatchedCards() {
-        for cardIndex in 0..<cards.count {
-            if cards[cardIndex].isMatched {
-                delegate?.markCardMathced(at: cardIndex)
+        // Flip the cards that are face up
+        delegate?.flipCard(at: index)
+        // Flip the cards as face down
+        for (index, card) in cards.enumerated() {
+            if !card.isFaceUp && !card.isMatched {
+                delegate?.flipCard(at: index)
+            }
+            if card.isMatched {
+                delegate?.markCardMathced(at: index)
             }
         }
+        if memoryGame.gameIsEnded {
+            print("GAME OVER!")
+        }
+        
     }
     
     public func hideMatchedCards() {
@@ -57,9 +59,11 @@ class MemoryGameP {
     }
     
     public func restartGame() {
-        self.memoryGame =  MemoryGame<String>.createMemoryGame(library:  ["👻", "😡", "👿","🤡","🎃", "🏓"])
+        self.memoryGame =  MemoryGame<String>.createMemoryGame(using:  ["👻", "😡", "👿","🤡","🎃", "🏓"], bonus: 3)
+        
         self.getMemoryGame()
     }
+    
     
     
 }

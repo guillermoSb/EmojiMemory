@@ -27,22 +27,10 @@ class CardView: UICollectionViewCell {
             emojiLabel.text = newValue
         }
     }
-    private var hasBonus: Bool {
-        return animationPercentageLeft > 0
-    }
-    private var faceUpAt: Date?
-    private var faceDownAt: Date?
     
-    private var animationPercentage: Double {
-        guard let faceDownAt = faceDownAt,
-              let faceUpAt = faceUpAt else {
-                  return 0  // No progress at all
-              }
-        return min((faceUpAt.timeIntervalSinceReferenceDate - faceDownAt.timeIntervalSinceReferenceDate).magnitude / Double(animationDuration), 1.0)
-    }
-    
-    private let animationDuration: Double = 3
-    private var animationPercentageLeft: Double = 1
+    var animationDuration: Double = 0
+    var animationPercentageLeft
+    : Double = 1
     
     // Wether the card is face up or face down
     var isFaceUp: Bool = false {
@@ -62,7 +50,7 @@ class CardView: UICollectionViewCell {
     }
     
     // Load nib file and create subView
-    func initSubViews() {
+    private func initSubViews() {
         let nib = UINib(nibName: "CardView", bundle: nil)
         nib.instantiate(withOwner: self, options: nil)
         content.frame = bounds
@@ -75,7 +63,7 @@ class CardView: UICollectionViewCell {
     
     
     // Configure the card view
-    func configureCardView() {
+    private func configureCardView() {
         content.layer.borderColor = cardColor.cgColor
         content.layer.cornerRadius = 10
         content.layer.cornerCurve = .continuous
@@ -84,7 +72,7 @@ class CardView: UICollectionViewCell {
     }
     
     // Configure the pieContainer
-    func configurePieContainer() {
+    private func configurePieContainer() {
         content.addSubview(pieContainer)
         pieContainer.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -98,7 +86,7 @@ class CardView: UICollectionViewCell {
     }
     
     // Create the progress circle shape
-    func createProgressCircle() {
+    private func createProgressCircle() {
         self.pieLayer.strokeEnd = 1
         self.pieLayer.lineWidth = 10
         self.pieLayer.fillColor = UIColor.clear.cgColor
@@ -107,7 +95,7 @@ class CardView: UICollectionViewCell {
         pieContainer.layer.addSublayer(self.pieLayer)
     }
     
-    func animatePie() {
+    private func animatePie() {
         // Create the CA animation
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.fromValue = 1 - animationPercentageLeft
@@ -121,7 +109,6 @@ class CardView: UICollectionViewCell {
     
     // Face up configuration
     func configureFaceUpCard() {
-        faceUpAt = Date()
         emojiLabel.isHidden = false
         pieContainer.isHidden = false
         content.backgroundColor = .none
@@ -130,21 +117,16 @@ class CardView: UICollectionViewCell {
     
     // Face down configuration
     func configureFaceDownCard() {
-        if let _ = faceUpAt {
-            faceDownAt = Date()
-            calculateBonusLeft()
-        }
         emojiLabel.isHidden = true
         pieContainer.isHidden = true
         content.backgroundColor = .systemOrange
+        print("Removing animation \(animationPercentageLeft)")
+        pieLayer.removeAllAnimations()
     }
     
-    func calculateBonusLeft() {
-        animationPercentageLeft = animationPercentageLeft - animationPercentage
-    }
     
     // Switch the card appearence
-    func switchCardState() {
+    private func switchCardState() {
         if isFaceUp {
             configureFaceUpCard()
         } else {
@@ -174,10 +156,18 @@ class CardView: UICollectionViewCell {
         animator.startAnimation()
     }
     
+    func configureInitialState() {
+        isFaceUp = false
+        alpha = 1
+        isHidden = false
+        cardHidden = false
+        self.pieLayer.opacity = 1
+        animationPercentageLeft = 1
+    }
+    
+    // Mark a card as matched
     func matchCard() {
         if !isMatched {
-            faceDownAt = Date()
-            calculateBonusLeft()
             let animator = UIViewPropertyAnimator(duration: 0.30, curve: .easeOut) {
                 self.pieLayer.opacity = 0
             }

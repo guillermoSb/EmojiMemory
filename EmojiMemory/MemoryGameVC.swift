@@ -11,10 +11,12 @@ class MemoryGameVC: UIViewController {
     
     @IBOutlet var collectionView: UICollectionView!
     
+    @IBOutlet var scoreNavigationItem: UINavigationItem!
     private let presenter: MemoryGameP = MemoryGameP()
     
     var itemsPerRow: CGFloat = 4
     var spacingBetweenCells: CGFloat = 10
+    private var score: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,16 +26,23 @@ class MemoryGameVC: UIViewController {
         configureCollectionView()
         // Get the initial memory game
         presenter.getMemoryGame()
+        showScore()
     }
 
     func configureCollectionView() {
         collectionView.isScrollEnabled = false
     }
     
+    func showScore() {
+        scoreNavigationItem.title = "Score: \(score)"
+    }
+    
     @IBAction func restartButtonTapped(_ sender: UIBarButtonItem) {
         self.collectionView.performBatchUpdates {
             self.collectionView.deleteItems(at: collectionView.indexPathsForVisibleItems)
             presenter.restartGame()
+            self.score = 0
+            showScore()
         }
 
    
@@ -86,13 +95,17 @@ extension MemoryGameVC: MemoryGamePDelegate {
         let cardView = collectionView.cellForItem(at: indexPath) as! CardView
         // Only flip the card if the state changes
         if cardView.isFaceUp != presenter.cards[index].isFaceUp {
+            cardView.animationPercentageLeft = presenter.cards[index].bonusRemaining
             cardView.flipCard()
         }
+        score = presenter.score
+        showScore()
         
     }
     
     func presentCards(cards: [MemoryGame<String>.MemoryCard]) {
         collectionView.deleteItems(at: collectionView.indexPathsForVisibleItems)
+
         collectionView.reloadData()
     }
 }
@@ -119,11 +132,9 @@ extension MemoryGameVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cardView", for: indexPath) as! CardView
-        cell.isFaceUp = false
-        cell.alpha = 1
-        cell.isHidden = false
-        cell.cardHidden = false
+        cell.configureInitialState()
         cell.cardContent = presenter.cards[indexPath.row].value
+        cell.animationDuration = presenter.bonusDuration
         return cell
     }
     

@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Game-->
+        <!--Score: 0-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MemoryGameVC" customModule="EmojiMemory" customModuleProvider="target" sceneMemberID="viewController">
@@ -52,7 +52,7 @@
                             <constraint firstItem="hxH-8N-Plr" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="wsx-mi-mSe"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Game" largeTitleDisplayMode="never" id="pQI-Je-ssT">
+                    <navigationItem key="navigationItem" title="Score: 0" largeTitleDisplayMode="never" id="pQI-Je-ssT">
                         <barButtonItem key="rightBarButtonItem" title="Restart" id="KyK-9R-Kmz">
                             <connections>
                                 <action selector="restartButtonTapped:" destination="BYZ-38-t0r" id="c6z-ND-p22"/>
@@ -61,6 +61,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="hxH-8N-Plr" id="mn7-Is-lRB"/>
+                        <outlet property="scoreNavigationItem" destination="pQI-Je-ssT" id="m5e-fd-CLo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
