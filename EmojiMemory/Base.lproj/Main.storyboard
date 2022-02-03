@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hxH-8N-Plr">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="48z-Xn-wWY">
                                     <size key="itemSize" width="128" height="128"/>
@@ -66,7 +66,105 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1063.768115942029" y="72.991071428571431"/>
+            <point key="canvasLocation" x="1623" y="342"/>
+        </scene>
+        <!--Your Games-->
+        <scene sceneID="OQT-L1-cYl">
+            <objects>
+                <viewController id="jqi-Fi-JFN" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xcH-UA-Tfg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="dda-k7-X71"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Your Games" id="WBk-kW-qYP">
+                        <barButtonItem key="leftBarButtonItem" title="Rules" id="Wo6-KP-0qO">
+                            <connections>
+                                <segue destination="JTP-nB-5fs" kind="presentation" id="cdK-Df-nza"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="plus" catalog="system" id="2OZ-R7-G2I"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ugb-1j-3UV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="786" y="342"/>
+        </scene>
+        <!--RulesVC-->
+        <scene sceneID="pKe-wP-ilY">
+            <objects>
+                <viewController id="JTP-nB-5fs" customClass="RulesVC" customModule="EmojiMemory" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8U8-TQ-QLD">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How To Play" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JF2-BC-TPV">
+                                <rect key="frame" x="141.5" y="24" width="131.5" height="30"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is a Memory Game, you win by matching all the cards with the same Emoji." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iew-IJ-OMT">
+                                <rect key="frame" x="50" y="84" width="314" height="36"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cJi-3f-XQd" customClass="CardView" customModule="EmojiMemory" customModuleProvider="target">
+                                <rect key="frame" x="132" y="296" width="150" height="250"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="Ox7-fa-JSQ"/>
+                                    <constraint firstAttribute="width" constant="150" id="ZGd-t0-3u3"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="VIS-i8-qON" appends="YES" id="EM1-Eg-n2m"/>
+                                </connections>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap the card to flip it!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SnP-SI-rIr">
+                                <rect key="frame" x="126.5" y="586" width="161" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you match the cards before the bonus timer ends, you will get extra points!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mLM-dr-hO6">
+                                <rect key="frame" x="50" y="130" width="314" height="36"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="53l-nU-iDm"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Iew-IJ-OMT" firstAttribute="leading" secondItem="53l-nU-iDm" secondAttribute="leading" constant="50" id="4Fn-sa-kGk"/>
+                            <constraint firstItem="SnP-SI-rIr" firstAttribute="centerX" secondItem="8U8-TQ-QLD" secondAttribute="centerX" id="52l-vc-yhE"/>
+                            <constraint firstItem="53l-nU-iDm" firstAttribute="trailing" secondItem="mLM-dr-hO6" secondAttribute="trailing" constant="50" id="7SJ-7G-S3j"/>
+                            <constraint firstItem="53l-nU-iDm" firstAttribute="trailing" secondItem="Iew-IJ-OMT" secondAttribute="trailing" constant="50" id="BRJ-ea-KYr"/>
+                            <constraint firstItem="Iew-IJ-OMT" firstAttribute="top" secondItem="JF2-BC-TPV" secondAttribute="bottom" constant="30" id="WfD-Va-ZGh"/>
+                            <constraint firstItem="JF2-BC-TPV" firstAttribute="centerX" secondItem="8U8-TQ-QLD" secondAttribute="centerX" id="You-kn-uPJ"/>
+                            <constraint firstItem="SnP-SI-rIr" firstAttribute="top" secondItem="cJi-3f-XQd" secondAttribute="bottom" constant="40" id="YzK-Co-uqK"/>
+                            <constraint firstItem="cJi-3f-XQd" firstAttribute="centerY" secondItem="8U8-TQ-QLD" secondAttribute="centerY" id="cNG-nl-TFb"/>
+                            <constraint firstItem="cJi-3f-XQd" firstAttribute="centerX" secondItem="8U8-TQ-QLD" secondAttribute="centerX" id="fs0-1I-SzX"/>
+                            <constraint firstItem="mLM-dr-hO6" firstAttribute="leading" secondItem="53l-nU-iDm" secondAttribute="leading" constant="50" id="od7-DR-QT1"/>
+                            <constraint firstItem="mLM-dr-hO6" firstAttribute="top" secondItem="Iew-IJ-OMT" secondAttribute="bottom" constant="10" id="zN4-cG-035"/>
+                            <constraint firstItem="JF2-BC-TPV" firstAttribute="top" secondItem="8U8-TQ-QLD" secondAttribute="topMargin" constant="24" id="zxC-f5-LXX"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cardView" destination="cJi-3f-XQd" id="rYZ-1w-qvR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YTS-IX-y5G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="VIS-i8-qON">
+                    <connections>
+                        <action selector="cardViewTapped:" destination="JTP-nB-5fs" id="Oos-GV-kxz"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="785.50724637681162" y="1129.6875"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="e93-30-Leq">
@@ -79,15 +177,16 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="lhz-9S-quu"/>
+                        <segue destination="jqi-Fi-JFN" kind="relationship" relationship="rootViewController" id="Ng1-uA-0iR"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yQn-gE-UrK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="153.62318840579712" y="72.991071428571431"/>
+            <point key="canvasLocation" x="-167" y="342"/>
         </scene>
     </scenes>
     <resources>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
