@@ -12,6 +12,7 @@ struct MemoryGame<CardContent: Equatable> {
     
     private(set) var cards: [MemoryCard]
     private(set) var score: Int = 0
+    
     private(set) var bonusTime: Double
     var gameIsEnded: Bool {
         for card in cards {
