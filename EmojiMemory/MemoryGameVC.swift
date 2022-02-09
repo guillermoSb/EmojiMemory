@@ -12,9 +12,8 @@ class MemoryGameVC: UIViewController {
     @IBOutlet var collectionView: UICollectionView!
     
     @IBOutlet var scoreNavigationItem: UINavigationItem!
-    private let presenter: MemoryGameP = MemoryGameP()
-    
-    
+    var presenter: MemoryGameP!
+        
     
     var itemsPerRow: CGFloat = 4
     var spacingBetweenCells: CGFloat = 10

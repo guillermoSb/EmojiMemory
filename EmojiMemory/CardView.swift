@@ -120,7 +120,6 @@ class CardView: UICollectionViewCell {
         emojiLabel.isHidden = true
         pieContainer.isHidden = true
         content.backgroundColor = .systemOrange
-        print("Removing animation \(animationPercentageLeft)")
         pieLayer.removeAllAnimations()
     }
     

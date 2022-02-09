@@ -13,13 +13,17 @@ typealias PresenterDelegate = MemoryGamePDelegate & UIViewController
 class MemoryGameP {
     
     weak var delegate: PresenterDelegate?
-    private var memoryGame: MemoryGame = MemoryGame<String>.createMemoryGame(using:  ["👻", "😡", "👿","🤡","🎃", "🏓"], bonus: 3)
+    private var memoryGame: MemoryGame<String>
     
     var cardCount: Int {memoryGame.cards.count}
     var cards: [MemoryGame<String>.MemoryCard] {memoryGame.cards}
     var score: Int {memoryGame.score}
     
     var bonusDuration: Double {memoryGame.bonusTime}
+    
+    init(memoryGame: MemoryGame<String>) {
+        self.memoryGame = memoryGame
+    }
     
     public func flipCard(at index: Int) {
         hideMatchedCards()

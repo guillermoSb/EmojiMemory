@@ -85,11 +85,11 @@
 				70A430D127987CA600770E9A /* Main.storyboard */,
 				700BA87B2799DEF600374D5C /* CardView.xib */,
 				700BA8792799DEE900374D5C /* CardView.swift */,
+				7037F6AA27AC521C00D33AA2 /* MemoryGameTheme.swift */,
+				7037F6AC27AC52F200D33AA2 /* UIColor+RGB.swift */,
 				70A430D427987CA700770E9A /* Assets.xcassets */,
 				70A430D627987CA700770E9A /* LaunchScreen.storyboard */,
 				70A430D927987CA700770E9A /* Info.plist */,
-				7037F6AA27AC521C00D33AA2 /* MemoryGameTheme.swift */,
-				7037F6AC27AC52F200D33AA2 /* UIColor+RGB.swift */,
 			);
 			path = EmojiMemory;
 			sourceTree = "<group>";

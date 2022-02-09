@@ -28,6 +28,18 @@ class ThemeStoreVC: UIViewController {
         static let themeCell = "themeCell"
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "GameVC" {
+            guard let sender = sender as? UITableViewCell else {return}
+            guard let indexPath = tableView.indexPath(for: sender) else {return}
+            let theme = themes[indexPath.row]
+            guard let gameVC = segue.destination as? MemoryGameVC else {return}
+            gameVC.presenter = MemoryGameP(memoryGame: MemoryGame.createMemoryGame(using: theme.content, bonus: 3))
+            sender.isSelected = false
+        }
+    }
+    
 
 }
 
@@ -36,6 +48,24 @@ extension ThemeStoreVC: UITableViewDelegate, UITableViewDataSource {
         return themes.count
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        true
+    }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") {(action, view, completion) in
+            self.themes.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+
+        }
+        deleteAction.image = UIImage(systemName: "trash")
+        let editAction = UIContextualAction(style: .normal, title: nil) {(action, view, completion) in
+            // TODO - Edit function
+        }
+        editAction.image = UIImage(systemName: "pencil")
+        editAction.backgroundColor = .systemBlue
+        return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.themeCell, for: indexPath)
