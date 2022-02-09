@@ -60,7 +60,8 @@ extension ThemeStoreVC: UITableViewDelegate, UITableViewDataSource {
         }
         deleteAction.image = UIImage(systemName: "trash")
         let editAction = UIContextualAction(style: .normal, title: nil) {(action, view, completion) in
-            // TODO - Edit function
+            let editThemeVC = EditThemeVC()
+            self.present(editThemeVC, animated: true, completion: nil)
         }
         editAction.image = UIImage(systemName: "pencil")
         editAction.backgroundColor = .systemBlue
